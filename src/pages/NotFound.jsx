@@ -29,8 +29,8 @@ const NotFoundPage = () => {
 				Oops! The page you are looking for doesn't exist :C
 			</p>
 			<Link to="/" style={styles.link}>
-				{" "}
-				&lt; Go Home
+				{"< "}
+				Go Home
 			</Link>
 		</div>
 	);
