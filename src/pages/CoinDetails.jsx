@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import Spinner from "../components/Spinner";
+import CoinChart from "../components/CoinChart";
 
 const API_URL = import.meta.env.VITE_COIN_API_URL;
 
@@ -20,10 +21,9 @@ const CoinDetailsPage = () => {
 				}
 
 				const data = await response.json();
-				console.log(data);
 				setCoin(data);
 			} catch (error) {
-				setError(error);
+				setError(error.message);
 				console.error(error);
 			} finally {
 				setLoading(false);
@@ -41,8 +41,8 @@ const CoinDetailsPage = () => {
 					? `${coin.name} (${coin.symbol.toUpperCase()})`
 					: "Coin Details"}
 			</h1>
-			{loading && <Spinner />}
 			{error && <div className="error">{error}</div>}
+			{loading && <Spinner />}
 			{!loading && !error && (
 				<>
 					<img
@@ -104,6 +104,8 @@ const CoinDetailsPage = () => {
 							{new Date(coin.last_updated).toLocaleDateString()}
 						</h4>
 					</div>
+
+					<CoinChart coinId={coin.id} />
 
 					<div className="coin-details-links">
 						{coin.links.homepage[0] && (
